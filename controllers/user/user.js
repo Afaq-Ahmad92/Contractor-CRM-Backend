@@ -205,7 +205,7 @@ const login = async (req, res) => {
     if (!user) {
       res
         .status(401)
-        .json({ error: "Authentication failed, invalid username" });
+        .json({ message: "Authentication failed, invalid username" });
       return;
     }
     // Compare the provided password with the hashed password stored in the database
@@ -213,7 +213,7 @@ const login = async (req, res) => {
     if (!passwordMatch) {
       res
         .status(401)
-        .json({ error: "Authentication failed,password does not match" });
+        .json({ message: "Authentication failed,password does not match" });
       return;
     }
     const token = jwt.sign({ userId: user._id }, "secret_key", {
@@ -229,15 +229,6 @@ const login = async (req, res) => {
     });
     // res.redirect("/");
     res.status(200).json({ message: "User Successfully Logged In" });
-    // Create a JWT token
-    // const token = jwt.sign({ userId: user._id }, "secret_key", {
-    //   expiresIn: "1d",
-    // });
-
-    // res
-    //   .status(200)
-    //   .setHeader("Authorization", `Bearer${token}`)
-    //   .json({ token: token, user });
   } catch (error) {
     res.status(500).json({ message: "An error occurred", error: error });
   }

@@ -23,8 +23,6 @@ const auth = (req, res, next) => {
   // Retrieve the token from the cookies
   const token = req.cookies.authToken;
 
-  console.log(token, "token");
-
   if (!token) {
     return res.status(401).json({
       message: "unauthenticated",
